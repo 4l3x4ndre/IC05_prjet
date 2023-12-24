@@ -2,6 +2,15 @@
 
 Projet étudiant UTC (IC05) visant à récolter des métriques sur les vidéos TikTok. Les pages PourToi et tendances sont analysées. Le dossier `data` contient les bases de données. Le dossier `plots`contient les graphiques utilisés pour l'analyse.
 
+## Auteurs
+
+- Alexandre Amrani - alexandre.amrani@etu.utc.fr
+
+- Robert Antaluca - robert.antaluca@etu.utc.fr 
+
+- Matthis Legal - matthis.legal@etu.utc.fr
+
+
 ## Utilisation
 
 Docker doit impérativement être installé et lancée. Les programmes présentés ici se connectent directement. Depuis une invite de commande, lancez : `sudo docker run -d -p 4445:4444 -p 5901:5900 selenium/standalone-firefox-debug`
