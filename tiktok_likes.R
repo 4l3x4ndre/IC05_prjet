@@ -14,11 +14,11 @@ remDr$getStatus()
 
 #----------Navigation-------------
 
-account_link<-"https://www.tiktok.com/@" #<---- ici metre l'url
+account_link<-"https://www.tiktok.com/@wolfandpig29" #<---- ici metre l'url
 
 
 remDr$navigate(account_link)
-
+ 
 Sys.sleep(3)
 
 #----------Fermeture onglet inscription-------------
@@ -48,11 +48,11 @@ tryCatch(
 
 #----------Scrolling-------------
 
-#for (x in 1:20) {
+for (x in 1:300) {
   
- # remDr$executeScript("window.scrollBy(0,5000);")
-  #Sys.sleep(2)
-#}
+  remDr$executeScript("window.scrollBy(0,5000);")
+  Sys.sleep(1)
+}
 scrollToEnd <- function() {
   last_height <- remDr$executeScript("return document.body.scrollHeight")
   while (TRUE) {
@@ -81,9 +81,9 @@ titles_likes <- remDr$findElements("xpath", "//div[@data-e2e='user-liked-item-de
 views_vids <- remDr$findElements("xpath", "//div[@data-e2e='user-liked-item']//strong[@data-e2e='video-views']")
 
 
-links_likes <- list()
-title_list <- list()
-views_list <- list()
+links_likes <-NA 
+title_list <- NA
+views_list <- NA
 
 #----------Récupération data-------------
 
@@ -116,10 +116,10 @@ usernames <- list()
 usernames <- lapply(links_likes, get_username)
 
 
-# Obtenez la longueur maximale parmi les trois catégories
+# Longueur maximale parmi les trois catégories
 max_length <- max(length(links_likes), length(title_list), length(views_list), length(usernames))
 
-# Assurez-vous que chaque catégorie a la même longueur
+# Chaque catégorie a la même longueur
 padList <- function(lst, len) {
   if (length(lst) < len) {
     lst <- c(lst, rep(NA, len - length(lst)))
@@ -127,7 +127,7 @@ padList <- function(lst, len) {
   return(lst)
 }
 
-# Remplissez chaque catégorie pour qu'elles aient la même longueur
+# Remplissage chaque catégorie pour qu'elles aient la même longueur
 links_likes <- padList(links_likes, max_length)
 title_list <- padList(title_list, max_length)
 views_list <- padList(views_list, max_length)
@@ -154,7 +154,6 @@ top_redundant_words <- names(sort(word_freq, decreasing = TRUE))[1:top_n]
 print(top_redundant_words)
 
 #----------Analyse textuelle texte le plus like-------------
-
 titles <- as.character(bdd_likes[, 4])
 tokenized_titles <- unlist(strsplit(titles, "\\s+"))
 
@@ -183,7 +182,12 @@ toremove<-c("’","a","le","la","de", "des", "les", "en", "sur", "à", "il", "el
             "vais", "vraiment", "y'a", "vas", "bla", "e", "d'être", "veux", "mois", "sen", 
             "bah", "regarde", "tiens", "complètement", "completement", "sait", "ten", "vers", 
             "+", "toutes", "|", "via", "mettre", "in", "of", "👉", "👇","➡","#fyp","#pourtoi","de","#viral","#foryou","#fypシ","le", "the",  
-            "!","a","mdr","lol",".",",",";","?","et", "#fypシ゚viral","#foryoupage" )
+            "!","a","mdr","lol","ce","qui",".",",",";","?","et", "#fypシ゚viral","#foryoupage","avec", "I", "love", "you","o", "u","y","v","#tiktok",
+            "#الشعب_الصيني_ماله_حل😂😂",  "#اكسبلور" ,":"  , "-" ,"#parati" ,   "lo" ,  "lo"       ,  "el"  , "es"   , "l"  , "#trending", "que","un","pour","je",
+            "_","est","fy", "che"   ,       "per"   ,       "è"        ,   
+        "*"      ,      "una"   ,   "#neiperte"  ,"#perte" ,  "di" ,"une", "#fy","my","#CapCut" ,"#edit","é" ,"😂" , "não"  ,
+        "eu" , "do"  , "to"    ,   "and"    ,  "is" ,"so" ,"this" ,"for" ,"i","that"    )
+
 
 # Remove specified words
 tokenized_titles <- tokenized_titles[!tokenized_titles %in% toremove]
@@ -195,4 +199,17 @@ top_n <- 10
 top_redundant_words <- names(sort(word_freq, decreasing = TRUE))[1:top_n]
 print(top_redundant_words)
 
-                         
+
+install.packages(c("wordcloud","tidyverse"))
+
+library(wordcloud)
+library(tidyverse)
+
+# Création d'un data frame pour le nuage de mots
+word_freq_df <- data.frame(word = names(word_freq), freq = as.numeric(word_freq))
+
+# Générer le nuage de mots
+set.seed(15621) # Pour reproduire les résultats
+wordcloud(words = word_freq_df$word, freq = word_freq_df$freq, min.freq = 6, 
+          scale = c(3, 0.2), colors = brewer.pal(8, "Dark2"))
+title(main = "Centre d'intérêts d'une utilisateur ayant liké Ronaldo", col.main = "black", font.main = 1)               

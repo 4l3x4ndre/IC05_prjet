@@ -16,8 +16,8 @@ remDr$getStatus()
 
 #----------Navigation-------------
 account_link<-NA
-account_link<-"https://www.tiktok.com/@raphael_metivet/video/7213843034193153286" 
-  
+account_link<-"https://www.tiktok.com/@sophia.panda06/video/7281969560457186562" 
+
 remDr$navigate(account_link)
 
 Sys.sleep(3)
@@ -35,16 +35,17 @@ tryCatch(
 
 #----------Scrolling-------------
 
-#for (x in 1:20) {
+for (x in 1:300) {
 
-# remDr$executeScript("window.scrollBy(0,5000);")
-#Sys.sleep(2)
-#}
+ remDr$executeScript("window.scrollBy(0,5000);")
+Sys.sleep(0.7)
+}
 scrollToEnd <- function() {
+  scroll_increment <- 500  # Define the scroll distance
   last_height <- remDr$executeScript("return document.body.scrollHeight")
   while (TRUE) {
-    remDr$executeScript("window.scrollBy(0, document.body.scrollHeight);")
-    Sys.sleep(1)
+    remDr$executeScript(paste0("window.scrollBy(0, ", scroll_increment, ");"))
+    Sys.sleep(2)  # Adjust this sleep duration if needed
     new_height <- remDr$executeScript("return document.body.scrollHeight")
     if (identical(new_height, last_height)) {
       break
@@ -105,13 +106,22 @@ time_list <-as.Date(time_list)
 print(time_list)
 
 #----------Occurences-------------#
+occurence <- list()
 occurences <- table(unlist(time_list))
 occurences <- as.data.frame(table(unlist(time_list)))
 colnames(occurences) <- c('Date','Nbcomments') 
 print(occurences)
+occurences$Date <- as.Date(occurences$Date)
 
-# Création d'un graphique à barres
 ggplot(occurences, aes(x = Date, y = Nbcomments)) +
   geom_bar(stat = "identity", fill = "skyblue", color = "black") +
-  labs(title = "Evolution des Commentaires", x = "Jour", y = "Nb de commentaires") +
-  theme_minimal()
+  labs(title = "Evolution des commentaires panda fyp", x = "Date", y = "Nb de commentaires") +
+  theme_minimal() +
+  scale_x_date(date_breaks = "1 month", date_labels = "%Y-%m-%d")
+
+ggplot(occurences, aes(x = Date, y = Nbcomments)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black") +
+  labs(title = "Evolution des Commentaires fyp dance", x = "Date", y = "Nb de commentaires") +
+  theme_minimal() +
+  scale_x_date(date_breaks = "1 day", date_labels = "%Y-%m-%d") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))

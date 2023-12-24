@@ -100,7 +100,6 @@ toremove<-c(stopwords ("french"), stopwords("english"),",","a","le","la","de", "
             "+", "toutes", "|", "via", "mettre", "in", "of", "👉", "👇","➡","#fyp","#pourtoi","de","#viral","#foryou","#fypシ","le", "the",  
             "!","a","mdr","lol",".",",",";","?","et", "#fypシ゚viral","#foryoupage", "un", "même", "Même", "je", "tu", "il", "on", "Bardella", "bardella", "Jordan")
 
-# Remove specified words
 tokenized_text <- tokenized_text[!tokenized_text %in% toremove]
 
 
