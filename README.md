@@ -6,7 +6,7 @@ Projet étudiant UTC (IC05) visant à récolter des métriques sur les vidéos T
 
 Docker doit impérativement être installé et lancée. Les programmes présentés ici se connectent directement. Depuis une invite de commande, lancez : `sudo docker run -d -p 4445:4444 -p 5901:5900 selenium/standalone-firefox-debug`
 
-Puis utiliser un logiciel de virtual network computing viewer pour afficher ce qui se passe dans le docker. Sous Windows, le logiciel TightVNC Viewer peut être utilisé. D'après la ligne ci-dessus, il faut le paramétrer pour écouter `127.0.0.1:5901`. Par défaut, le mot de passe est "*secret*".
+Puis utiliser un logiciel de virtual network computing viewer pour afficher ce qui se passe dans le docker. Sous Windows, le logiciel [TightVNC Viewer](https://www.tightvnc.com/download.php) peut être utilisé. D'après la ligne ci-dessus, il faut le paramétrer pour écouter `127.0.0.1:5901`. Par défaut, le mot de passe est "*secret*".
 
 ## Contenu
 
