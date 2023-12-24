@@ -1,7 +1,3 @@
----
-
----
-
 # WebScraping : TikTok Projet Etudiant
 
 Projet étudiant UTC (IC05) visant à récolter des métriques sur les vidéos TikTok. Les pages PourToi et tendances sont analysées. Le dossier `data` contient les bases de données. Le dossier `plots`contient les graphiques utilisés pour l'analyse.
