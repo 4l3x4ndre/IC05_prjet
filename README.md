@@ -48,6 +48,10 @@ chaque bdd une fois la tendance finie.
 
 - `update_stats_videos.R` : programme utilisé pour METTRE A JOUR les données tendances avec Selenium. Une fois les bdd tendances créées, lancer ce script ajoute 4 colonnes pour les 4 métriques, avec comme nom "<métrique> \<Date\>". Il faut rester proche pour résoudre les captcha.
 
+- `tiktok_like.R` : pour obtenir un nuage de mots à partir des likes du compte d'un utilisateur.
+
+- `comments_count.R` : pour récupérer l'histogramme des commentaires en fonction du temps pour une vidéo 
+
 Ancien script : 
 
 - `musique_avec_docker.R` Programme utilisé pour récupérer les données des vidéos à partir d'une page musique.
