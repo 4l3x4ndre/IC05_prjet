@@ -19,6 +19,20 @@ Puis utiliser un logiciel de virtual network computing viewer pour afficher ce q
 
 ## Contenu
 
+### Graphiques
+
+Le dossier *plots* contient les images générées pour l'analyse des données. 
+
+A la racine du dossier se trouvent les courbes d'une métrique en fonction de l'autre. Avec en rouge les données PourToi et en bleu les données tendances. Les noms de fichier `xVy`représentent les courbes de la métrique y en fonction de x.
+
+Le sous dossier *boxplot* présente les métriques sous forme de boxplot.
+
+Le sous dossier *wordclouds* contient les nuages de mots.
+
+Le sous dossier *curves* présent l'évolution des métriques au cours du temps : un fichier pour une tendance, contenant maximum 6 courbes pour les 6 vidéos de la tendance. Ces résultats semblent stablent, mais c'est un problème d'échelle : il y a bien augmentation des métriques, mais parfois de quelques unités chaque jour, ce qui n'est pas perceptible. Ces graphiques n'ont donc pas été présentés. On notera cependant qu'il est possible d'y voir de rapides augmentations pour certaines vidéos (comme dans l'image de la tendance n°13 pour les commentaires).
+
+### Scripts
+
 Les fichiers principaux sont cités ici :
 
 - `decouverte_videos.R` : à partir d'une bdd contenant les liens des tendances, parcourt les tendances et crée les bases tendances. Ne récupère que les liens vidéos/utilisateurs et le username.
