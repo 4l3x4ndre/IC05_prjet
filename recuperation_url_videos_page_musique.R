@@ -1,3 +1,11 @@
+# ---------------------------------------------------------------------------- #
+
+# Programme utilisé pour récupérer les liens des pages musiques
+# à partir de la page PourToi. A fair eavant musique_avec_docker.R
+
+# ---------------------------------------------------------------------------- #
+
+
 install.packages("RSelenium")
 install.packages("seleniumPipes")
 install.packages("httr")

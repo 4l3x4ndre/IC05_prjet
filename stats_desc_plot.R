@@ -1,3 +1,11 @@
+# ---------------------------------------------------------------------------- #
+
+# Programme utilisé pour générer les graphiques. Il suffit de lancer une 
+# fonction pour que l'image correspondante soit enregistrée.
+
+# ---------------------------------------------------------------------------- #
+
+
 
 # ----------------- Plot les coms en fonction des likes pour les foryou ------------------
 foryou_likes_coms <- function() {
@@ -61,19 +69,7 @@ bddtoplot <- data.frame(bdd$likes, bdd$coms)
 
 
 
-# ----------------- Heatmap coms/likes --------------------
-heatmap_comsVlikes <- function() {i
-	###### Ne fonctionne pas #######
-	bddtoplot$values <<- bddtoplot$likes[bddtoplot$likes>1]
-	print(bddtoplot)
-	w <-1920
-        h <- 1080
-	dev.new(width=w, height=h, unit="px")
-        jpeg(file="heatmap.jpeg", width=w, height = h)
-	heatmap(as.matrix(bddtoplot), scale="column")
-	dev.off()
-}
-#heatmap_comsVlikes()
+
 
 
 # ------------- Afficher les signets en fonction des coms  ------------

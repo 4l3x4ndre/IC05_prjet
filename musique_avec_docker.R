@@ -1,3 +1,12 @@
+# ---------------------------------------------------------------------------- #
+
+# Programme utilisé pour récupérer les données des vidéos à partir d'une page 
+# musique.
+
+# ---------------------------------------------------------------------------- #
+
+
+
 install.packages("RSelenium")
 install.packages("seleniumPipes")
 install.packages("httr")

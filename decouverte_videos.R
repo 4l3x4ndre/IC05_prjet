@@ -1,3 +1,16 @@
+# ---------------------------------------------------------------------------- #
+
+# Ce script était initialement utilisé pour parcourir la page PourToi, en
+# récupérer les urls des pages musiques (fonction decouverte_musique), puis 
+# les parcourir pour récupérer les données des vidéos. 
+# Finalement, le script a été modifié pour parcourir les vidéos trends.
+# Les traces de la version initiale (musique) ont été gardées et sont présentes
+# en commentaire.
+
+# ---------------------------------------------------------------------------- #
+
+
+
 #install.packages("magrittr")
 #install.packages("whisker")
 #install.packages("Rtools")
@@ -29,21 +42,24 @@ decouverte_musique <- function () {
  }
 
 remove_login_popup <- function() {
+  # Fonction pour retirer le popup login. Il suffit de l'appeler
+  # pour l'enlever.
+  
 	Sys.sleep(3)
-        tryCatch({
-	        button = remDr$findElement('xpath', "//div[contains(@class, 'DivCloseWrapper')]")
-	        button$clickElement()
-        }, error=function(cond) {
-                print(cond)
-                return (1)
-        })
-        return (0)
+  tryCatch({
+    button = remDr$findElement('xpath', "//div[contains(@class, 'DivCloseWrapper')]")
+    button$clickElement()
+  }, error=function(cond) {
+          print(cond)
+          return (1)
+  })
+  return (0)
 
 }
 
 
 scrap <- function(index) {
-  #remDr$navigate(unlist(pages_musiques)[index])
+  #remDr$navigate(unlist(pages_musiques)[index]) # pour scraper les pages musiques
 
   # Récupérer le nom de la musique qui sera le nom du fichier csv
   tmp_nom=toString(index)
@@ -119,9 +135,7 @@ scrap <- function(index) {
 
 		
 
-	} else {
-		print("not in here")
-	    }
+	}
 
 	}, error=function(cond)  {
 		print("Can't find the video link, passes this video")
@@ -159,7 +173,7 @@ scrap <- function(index) {
 remDr <- remoteDriver( port = 4445L, browserName = "firefox", version="1")
 remDr$open(silent = TRUE)
 
-# ------------- Sans les trends : depuis for you ------------
+# ------------- Utiliser ce script pour initialiser la recherche de musique ------------
 # decouverte_musique()
 #tryCatch({
 #	bdd <- read.csv("./data/data.csv", sep=";")
@@ -174,7 +188,7 @@ remDr$open(silent = TRUE)
 #})
 
 
-# --------------- Avec trends : cherche la bdd -----------
+# --------------- Sans musiques : cherche la bdd avec les liens des trends -----------
 tryCatch({
 	bdd_tmp <- read.csv("./data/trends.csv")
 	print("Reading from trend.csv")
@@ -186,16 +200,18 @@ tryCatch({
 
 print(pages)
 bdd <<- data.frame()
+
 # --------------- Scrap ------------
 numero_scrap <- 1
 for (page in unlist(pages)[14:20]) {
 	remDr$navigate(page)
-titles <- list()
-urls <- list()
-names <- list()
-links <- list()
-pages <- list()
+  titles <- list()
+  urls <- list()
+  names <- list()
+  links <- list()
+  pages <- list()
 
+  # On attend, on enlève le popup, on scrap, puis on passe à la suviante.
 
 	print("Went to url")
 	Sys.sleep(10)

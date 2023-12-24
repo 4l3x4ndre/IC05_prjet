@@ -1,3 +1,15 @@
+# ---------------------------------------------------------------------------- #
+
+# Ce script a été utilisé pour scrapper la page PourToi.
+# Les données récupérées sont 
+# "names", "likes", "coms", "signets", "partages", "descriptions", "hashtags", "urls".
+
+# Pas de fonction main dans ce script. Il suffit de le lancer.
+
+# ---------------------------------------------------------------------------- #
+
+
+
 #install.packages("crayon")
 library(crayon)
 
@@ -18,15 +30,17 @@ unit <- function(valeur) {
 }
 
 clicker_bouton <- function(path) {
-        tryCatch({
-        button = remDr$findElement('xpath',path )
-        button$clickElement()
-        }, error=function(cond) {
-                print(cond)
-                return (1)
-        })
-        return (0)
-
+  # Fonction utiliser pour simuler un click sur le premier bouton
+  # donné en xpath.
+  
+  tryCatch({
+  button = remDr$findElement('xpath',path )
+  button$clickElement()
+  }, error=function(cond) {
+          print(cond)
+          return (1)
+  })
+  return (0)
 }
 
 
@@ -50,34 +64,28 @@ partages <- list()
 descriptions <- list()
 hashtags <- list()
 
+
+# Boucle pour défiler vers le bas de la page.
+# Défiler plus semble impossible pour Selenium (excès mémoire).
 for (i in c(1:3)) {
 	Sys.sleep(3)
-        remDr$executeScript("window.scrollBy(0,1000000);")
+  remDr$executeScript("window.scrollBy(0,1000000);")
 }
+
+# Popup
 clicker_bouton("//div[contains(@class, 'DivCloseWrapper')]")
 
+# Les blocs sont les vidéos : 1 bloc = 1 vidéo avec ses données.
 blocs <- remDr$findElements('xpath',
 			    "//div[contains(@class, 'DivContentContainer')]")
 print(length(blocs))
+
+
+# Boucle principale
 i <- 1
 for (bloc in blocs) {
-	
-	#tryCatch ({	
-	#	c <- TRUE
-	#	while (c) {
-	#		captchas <- remDr$findElement('xpath', "//div[contains(@class, 'captcha')]")
-	#		i <- 0
-	#		for (cap in captchas) {i
-	#			print(" ############### CAPTCHA !!! ################### ")
-	#			i <- i + 1
-	#		}
-	#		if (i == 0) c <- FALSE
-	#		Sys.sleep(0.1)
-	#	}
-	#}, error=function(cond){})
-	
-	#if (i == 5)break 
 	print(paste0("nouveau bloc: ", i))
+  
 	tryCatch({
 
 		can_scrap <- TRUE
@@ -90,13 +98,11 @@ for (bloc in blocs) {
 			Sys.sleep(2)
 			Sys.sleep(3)
 			if (url != "https://www.tiktok.com/foryou") {
-			       if (!(url %in% urls)) {
-				       #urls <<- append(urls, url)
-				       final_url <<- url
+         if (!(url %in% urls)) {
+  	       final_url <<- url
 				} else {
-					#urls <<- append(urls, "")
 					final_url <<- "NA"
-			       }
+	       }
 			} else {
 				print("FALSE ", url)
 				can_scrap <<- FALSE
@@ -106,7 +112,6 @@ for (bloc in blocs) {
 			Sys.sleep(0.5)
 		}, error=function(cond){
 			print("no url")
-			#urls <<- append(urls, "--")
 			final_url <<- "NA"
 		})
 
@@ -138,19 +143,10 @@ for (bloc in blocs) {
 		tryCatch({
 			desc_obj <- bloc$findChildElement('xpath', ".//div[contains(@class, 'DivText')]//div[contains(@class, 'DivText')]//div[contains(@class, 'DivContainer')]")
 			print(desc_obj$getElementText()[[1]])
-			#vec <- desc_obj$getElementText()
 			txt <<- desc_obj$getElementText()[[1]]
-			#if (txt == "") txt <<- desc_obj$getElementText()[[1]]
-		}, error=function(cond){
-			#print("here")
-			#spans <- bloc$findChildElemets('xpath',
-			#	".//div[contains(@class, 'DivText')]//div[contains(@class, 'DivText')]//div[contains(@class, 'DivContainer')]//span")
-			
-			#for (span in spans) {
-			#	txt <- paste0(txt, span$getElementText())
-			#}
-			#descriptions <- append(descriptions, txt)
-		})
+		}, error=function(cond){})
+		
+		
 		txt1 <- str_split_1(txt, "#")[1]
 		descriptions <- append(descriptions, txt1)
 		print("txt:")
@@ -172,19 +168,6 @@ for (bloc in blocs) {
 	}, error=function(cond) {
 		print(cond)
 	})
-
-
-	
-
-
-
-	#bloc$clickElement()
-	#Sys.sleep(1)
-	#urls <- append(urls, remDr$getContentUrl())
-	
-	#closeButteon <- remDr$findElement('xpath', "//button[contains(@class, 'ButtonBasicButtonContainer')]")
-	#closeButton$clickElement()
-	#Sys.sleep(1)
 
 
 	i <- i + 1

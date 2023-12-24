@@ -1,3 +1,12 @@
+# ---------------------------------------------------------------------------- #
+
+# Script utilisé pour récupérer les commentaires des vidéos tendances
+# dont l'url a déjà été stockées dans la bdd de la tendance.
+
+# ---------------------------------------------------------------------------- #
+
+
+
 #install.packages("httr")
 #install.packages("magrittr")
 #install.packages("whisker")

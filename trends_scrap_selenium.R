@@ -1,3 +1,16 @@
+# ---------------------------------------------------------------------------- #
+
+# Attention, ce programme n'est plus fonctionnel car les données semblent
+# désormais être chargées dynamiquement. Il faut passer par Selenium 
+# avec le script update_stats_videos.
+
+# Programme utilisé pour METTRE A JOUR les données tendances.
+# Une fois les bdd tendances créées, lancer ce script ajoute 4 colonnes 
+# pour les 4 métriques, avec comme nom "<métrique>_<DateDuJour>".
+
+# ---------------------------------------------------------------------------- #
+
+
 library(httr)
 library(jsonlite)
 library(xml2)
